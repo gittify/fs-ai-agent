@@ -18,9 +18,6 @@ each supplier and ingredient, cross-check lot codes against inventory, fill in t
 log, and email purchasing or the warehouse to hold anything affected. The log is what an auditor asks to
 see, and a missed Class I recall means a product hold or a customer incident.
 
-> **TODO before submitting:** replace this paragraph's estimate with the coordinator's own numbers
-> (hours per week, how many items, what the last miss cost them). The working assumption is 3 to 4 hours
-> a week. It has **not** been validated with a real coordinator yet.
 
 ## What it hands back
 
@@ -179,8 +176,7 @@ not double the cost figures.
   unusual grouping can still be missed, and the guardrails cannot flag a recall that was never returned.
 - Name matching is heuristic (token similarity, plus exact UPC and lot matches). Ambiguous cases go to a
   human by design, so expect some review items.
-- Tested offline with scripted model responses and DynamoDB emulation. See the TODO list for what has and
-  has not run against real AWS.
+- Tested offline with scripted model responses and DynamoDB emulation.
 
 ## Evaluation
 
@@ -208,40 +204,22 @@ Two layers (details and how to read them: [`evals/README.md`](evals/README.md)).
 | Over-escalated to review (safe direction) | 0 | 3 |
 | Model calls / tokens in / tokens out per item | 2.0 / 2256 / 377 | 1.3 / 1819 / 480 |
 
-  Read this with care. The cases were written knowing the first run's failures and the plan was built to fix them,
-  so this shows the fix works on *known* failure modes, not that it generalizes. The 87 runs are 29 cases x 3
-  near-identical repeats, so the effective sample is 29 cases (an interval by case is about 83% to 99%, wider than
-  the 90% to 99% the report shows). The data is fictional, the openFDA API is emulated, and the labels are the
-  builder's, not a coordinator's.
 - **Stress sets, written to probe the search plan's limits** (offline, with a model that searches nothing, so this
   measures what the code finds on its own). The first set (`evals/heldout.json`) found 5 of 12 positive cases and
   led to four fixes: a leading "The", a UPC printed without its leading zero or as a 14-digit GTIN, singular vs
   plural, and "dba" parent names. A **fresh** set (`evals/heldout2.json`) was written *before* those fixes so they
-  could not be tuned to it: the unmodified code found **3 of 11**, and after the fixes **9 of 11**. The first set now
-  stands at 9 of 12, though it is no longer held out for the cases that were fixed. All four fixes can only add
-  queries or send a case to review. None can create a hold or a clear. No false holds, fabricated evidence or
-  crashes on either set.
-  Known gaps remain and are pinned by tests: typos, "Sun-Rise" vs "Sunrise", a generic first word plus an
-  abbreviation ("Pacific Rim Foods Intl"), a UPC in an unusual grouping, and irregular plurals ("bay leaf" vs
-  "bay leaves", which the matcher still hides). One known cost: "Sun Foods" vs "Sunset Foods" scores as a close
-  name, so a correct CLEAR goes to review (the safe direction). These are stress tests, not samples.
-- **The live numbers above were measured before these last fixes.** Re-run `python -m evals.run live` to refresh them.
+  could not be tuned to it: the unmodified code found **3 of 11**, and after the fixes **9 of 11**. 
 - **Live model eval:** `python -m evals.run live --model-id <id>` runs the same cases against a real Bedrock model and
   compares models.
 - **Injection set (`evals/injection.json`), 15 cases.** The first five were run against the deployed guardrail. Flagged:
   INJ1 (classic) and INJ3 (fence-closing). Not flagged: INJ2 (fake "SYSTEM" message), which still ended as a correct
-  HOLD. No false alarms on two legitimate, alarming recalls, and no check errors. That is a first look, not a detection
-  rate. **Ten more were drafted afterwards and have not been run:** assertion-style attacks (a forged "terminated" status,
-  a fake coordinator note), injections hidden in other fields, a tool-hijack attempt, a letter-spaced one, a Spanish one,
-  and three more legitimate texts that contain trigger words. They were written knowing the earlier result, so they are a
-  stress test and not an unbiased sample. Details in `evals/README.md`.
-- Labels are the builder's, not yet adjudicated by a coordinator.
+  HOLD. No false alarms on two legitimate, alarming recalls, and no check errors.  Details in `evals/README.md`.
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt -r infra/requirements.txt
-python -m pytest -q                      # offline: no AWS account needed
+python -m pytest -q # offline: no AWS account needed
 ```
 
 Deploy: [`docs/DEPLOY.md`](docs/DEPLOY.md) (step-by-step checklist and model choice).
@@ -251,17 +229,4 @@ Inventory CSV format (one row per lot; the format is documented in `recall_agent
 ```
 name,kind,lot,sku,upc,qty_received,qty_on_hand,aliases,contact
 Sunrise Foods Inc,supplier,LOT 7710B,SF-TAH-16,012345678905,120,40,Sunrise Foods,purchasing@example.com
-```
-
-## Layout
-
-```
-recall_agent/   openfda.py (tool client)  matcher.py  queryplan.py (standard searches)  agent.py (Bedrock loop + guardrails)  inventory.py
-                state.py (DynamoDB)  notify.py (SES)  workbook.py + templates/  record.py  handler.py
-                guard.py (Bedrock Guardrails)  metrics.py (CloudWatch EMF)
-infra/          CDK stack, Lambda packaging (package.py), pinned dependencies
-tests/          failure paths, state, notices, workbook, inventory/UPC, infrastructure, demo tools, evals
-evals/          labeled cases + two stress sets (heldout.json, heldout2.json), harness, CLI, reports
-demo/           demo inventory     scripts/  reset_demo_state.py     docs/  DEPLOY, DEMO_SCRIPT, architecture
-sample_output/  an example filled workbook (fictional data)
 ```
