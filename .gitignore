@@ -1,0 +1,31 @@
+# Virtual environment
+aws-cday/
+venv/
+.venv/
+env/
+
+# CDK synthesis & packaging build artifacts
+infra/cdk.out/
+infra/.build/
+cdk.out/
+.build/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Test & lint caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local run outputs
+out.json
+infra/out.json
+/tmp/out.json
+
+# OS metadata
+.DS_Store
+Thumbs.db

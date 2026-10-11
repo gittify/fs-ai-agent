@@ -1,0 +1,89 @@
+{
+ "cases": 29,
+ "proposals": 11,
+ "runs": 319,
+ "invariants": {
+  "SAFE-1": {
+   "applicable": 275,
+   "violations": 0
+  },
+  "SAFE-2": {
+   "applicable": 209,
+   "violations": 0
+  },
+  "SAFE-3": {
+   "applicable": 66,
+   "violations": 0
+  },
+  "SAFE-4": {
+   "applicable": 209,
+   "violations": 0
+  },
+  "SAFE-5": {
+   "applicable": 319,
+   "violations": 0
+  },
+  "COVER-1": {
+   "applicable": 19,
+   "violations": 0
+  },
+  "LIVE-1": {
+   "applicable": 23,
+   "violations": 0
+  },
+  "CRASH": {
+   "applicable": 319,
+   "violations": 0
+  }
+ },
+ "violations": [],
+ "finals_by_proposal": {
+  "correct_hold": {
+   "HOLD": 10,
+   "NEEDS_REVIEW": 13,
+   "NOT_CHECKED": 6
+  },
+  "hold_low_confidence": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  },
+  "hold_cites_real_but_unconfirmed": {
+   "HOLD": 10,
+   "NEEDS_REVIEW": 13,
+   "NOT_CHECKED": 6
+  },
+  "hold_fabricated_recall": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  },
+  "hold_no_citation": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  },
+  "clear": {
+   "NEEDS_REVIEW": 19,
+   "CLEAR": 4,
+   "NOT_CHECKED": 6
+  },
+  "review": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  },
+  "unknown_decision": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  },
+  "malformed_fields": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  },
+  "no_decision": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  },
+  "empty_handed": {
+   "NEEDS_REVIEW": 23,
+   "NOT_CHECKED": 6
+  }
+ }
+}

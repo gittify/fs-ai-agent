@@ -1,0 +1,5 @@
+name,kind,lot,sku,upc,qty_received,qty_on_hand,aliases,contact
+Sunrise Foods Inc,supplier,LOT 7710B,SF-TAH-16,012345678905,120,40,Sunrise Foods,purchasing@example.com
+Sunrise Foods Inc,supplier,LOT 7712C,SF-TAH-16,012345678905,200,200,,
+tahini,ingredient,T-2209-14,,,,,sesame paste,warehouse@example.com
+Acme Spice Traders,supplier,,,,,,,purchasing@example.com

@@ -1,0 +1,671 @@
+{
+ "policy": "FRESH STRESS SET #2. Written BEFORE the fixes it measures, so the fixes could not be tuned to it. It includes variants the fixes deliberately do not cover (HX02, HX06) and precision controls (HX10 to HX12). Like heldout.json it is a stress test, not a representative sample. Run: python -m evals.run offline --cases evals/heldout2.json --out evals/results/heldout2",
+ "cases": [
+  {
+   "id": "HX01",
+   "category": "hold",
+   "expected": "HOLD",
+   "description": "Recall prints our UPC as a 14-digit GTIN",
+   "item": {
+    "name": "Sunrise Foods Inc",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "012345678905",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-1-2026",
+      "event_id": "70001",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Golden Sesame Trading Co",
+      "product_description": "Sesame tahini, 16 oz, GTIN 00012345678905",
+      "code_info": "LOT 8841A",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "product_description",
+     "term": "sesame tahini"
+    }
+   ],
+   "cite": [
+    "F-1-2026"
+   ],
+   "note": ""
+  },
+  {
+   "id": "HX02",
+   "category": "hold",
+   "expected": "HOLD",
+   "description": "Recall prints the UPC without its leading zero, grouped 1-5-5",
+   "item": {
+    "name": "Sunrise Foods Inc",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "012345678905",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-2-2026",
+      "event_id": "70002",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Golden Sesame Trading Co",
+      "product_description": "Sesame tahini, 16 oz, UPC 1 23456 78905",
+      "code_info": "LOT 8841A",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "product_description",
+     "term": "sesame tahini"
+    }
+   ],
+   "cite": [
+    "F-2-2026"
+   ],
+   "note": "Deliberately a variant the planned fix does not cover."
+  },
+  {
+   "id": "HX03",
+   "category": "review",
+   "expected": "NEEDS_REVIEW",
+   "description": "Leading 'The' on file only",
+   "item": {
+    "name": "The Golden Spoon Company",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-3-2026",
+      "event_id": "70003",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Golden Spoon Co.",
+      "product_description": "Sesame tahini, 16 oz jars",
+      "code_info": "LOT 8841A",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "recalling_firm",
+     "term": "Golden Spoon"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX04",
+   "category": "review",
+   "expected": "NEEDS_REVIEW",
+   "description": "Ingredient singular on file, plural in the recall",
+   "item": {
+    "name": "almond",
+    "kind": "ingredient",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "AL-100",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-4-2026",
+      "event_id": "70004",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Nutty Pantry LLC",
+      "product_description": "Almonds, roasted & salted, 10 oz",
+      "code_info": "AL-100",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "product_description",
+     "term": "almonds"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX05",
+   "category": "review",
+   "expected": "NEEDS_REVIEW",
+   "description": "Ingredient ending in -y, plural -ies in the recall",
+   "item": {
+    "name": "cherry",
+    "kind": "ingredient",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "CH-220",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-5-2026",
+      "event_id": "70005",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Orchard Gold Inc",
+      "product_description": "Dried cherries, 8 oz",
+      "code_info": "CH-220",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "product_description",
+     "term": "cherries"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX06",
+   "category": "review",
+   "expected": "NEEDS_REVIEW",
+   "description": "Irregular plural: 'bay leaf' vs 'bay leaves'",
+   "item": {
+    "name": "bay leaf",
+    "kind": "ingredient",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "BL-9",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-6-2026",
+      "event_id": "70006",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Spice Route LLC",
+      "product_description": "Bay leaves, whole, 1 oz",
+      "code_info": "BL-9",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "product_description",
+     "term": "bay leaves"
+    }
+   ],
+   "cite": [],
+   "note": "Deliberately an irregular form the planned fix does not cover."
+  },
+  {
+   "id": "HX07",
+   "category": "review",
+   "expected": "NEEDS_REVIEW",
+   "description": "Our supplier appears under a parent 'd/b/a'",
+   "item": {
+    "name": "Maple Ridge Dairy",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-7-2026",
+      "event_id": "70007",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Valley Holdings Inc d/b/a Maple Ridge Dairy",
+      "product_description": "Sesame tahini, 16 oz jars",
+      "code_info": "LOT 8841A",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "recalling_firm",
+     "term": "Maple Ridge Dairy"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX08",
+   "category": "review",
+   "expected": "NEEDS_REVIEW",
+   "description": "Our name is longer than the recall's",
+   "item": {
+    "name": "Blue Heron Seafood Processing Co",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-8-2026",
+      "event_id": "70008",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Blue Heron Seafood",
+      "product_description": "Sesame tahini, 16 oz jars",
+      "code_info": "LOT 8841A",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "recalling_firm",
+     "term": "Blue Heron Seafood"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX09",
+   "category": "review",
+   "expected": "NEEDS_REVIEW",
+   "description": "Recall firm is our name plus extra words (a possible affiliate)",
+   "item": {
+    "name": "Sunrise Foods Inc",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-9-2026",
+      "event_id": "70009",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Sunrise Foods Distribution Group LLC",
+      "product_description": "Sesame tahini, 16 oz jars",
+      "code_info": "LOT 8841A",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "recalling_firm",
+     "term": "Sunrise Foods"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX10",
+   "category": "clear",
+   "expected": "CLEAR",
+   "description": "Precision: 'pea' must not match 'pear'",
+   "item": {
+    "name": "pea",
+    "kind": "ingredient",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "PE-5",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-10-2026",
+      "event_id": "70010",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Juice Works Inc",
+      "product_description": "Pear juice, 12 oz",
+      "code_info": "PE-5",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "product_description",
+     "term": "pear juice"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX11",
+   "category": "clear",
+   "expected": "CLEAR",
+   "description": "Short name that resembles but is not the recalled firm",
+   "item": {
+    "name": "Sun Foods Inc",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-11-2026",
+      "event_id": "70011",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Sunset Foods LLC",
+      "product_description": "Sesame tahini, 16 oz jars",
+      "code_info": "SF-77",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "recalling_firm",
+     "term": "Sunset Foods"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX12",
+   "category": "clear",
+   "expected": "CLEAR",
+   "description": "Same first word, different firm",
+   "item": {
+    "name": "Harvest Moon Foods",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-12-2026",
+      "event_id": "70012",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Harvest Hill Farms",
+      "product_description": "Fresh apples",
+      "code_info": "HH-3",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "recalling_firm",
+     "term": "Harvest"
+    }
+   ],
+   "cite": [],
+   "note": ""
+  },
+  {
+   "id": "HX13",
+   "category": "hold",
+   "expected": "HOLD",
+   "description": "Regression control: exact name, upper case, our lot",
+   "item": {
+    "name": "Alpine Meadow Foods Inc",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 3301B",
+      "sku": "SKU-1",
+      "upc": "",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-13-2026",
+      "event_id": "70013",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "ALPINE MEADOW FOODS INC",
+      "product_description": "Sesame tahini, 16 oz jars",
+      "code_info": "LOT 3301B",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "recalling_firm",
+     "term": "Alpine Meadow Foods"
+    }
+   ],
+   "cite": [
+    "F-13-2026"
+   ],
+   "note": ""
+  },
+  {
+   "id": "HX14",
+   "category": "hold",
+   "expected": "HOLD",
+   "description": "Regression control: UPC in the standard grouping",
+   "item": {
+    "name": "Sunrise Foods Inc",
+    "kind": "supplier",
+    "aliases": [],
+    "lots": [
+     {
+      "code": "LOT 8841A",
+      "sku": "SKU-1",
+      "upc": "012345678905",
+      "qty_received": 100,
+      "qty_on_hand": 30
+     }
+    ]
+   },
+   "fda": {
+    "records": [
+     {
+      "recall_number": "F-14-2026",
+      "event_id": "70014",
+      "classification": "Class I",
+      "status": "Ongoing",
+      "recalling_firm": "Golden Sesame Trading Co",
+      "product_description": "Sesame tahini, UPC 0 12345 67890 5",
+      "code_info": "LOT 8841A",
+      "reason_for_recall": "Undeclared allergen (fictional eval fixture)",
+      "report_date": "20260924",
+      "recall_initiation_date": "20260915",
+      "distribution_pattern": "CA, NV"
+     }
+    ],
+    "fault": null,
+    "fault_on": null
+   },
+   "searches": [
+    {
+     "field": "product_description",
+     "term": "sesame tahini"
+    }
+   ],
+   "cite": [
+    "F-14-2026"
+   ],
+   "note": ""
+  }
+ ]
+}
