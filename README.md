@@ -244,8 +244,7 @@ pip install -r requirements.txt -r infra/requirements.txt
 python -m pytest -q                      # offline: no AWS account needed
 ```
 
-Deploy and rehearse: [`docs/DEPLOY.md`](docs/DEPLOY.md) (step-by-step checklist and model choice).
-Present it: [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) (5-minute script).
+Deploy: [`docs/DEPLOY.md`](docs/DEPLOY.md) (step-by-step checklist and model choice).
 
 Inventory CSV format (one row per lot; the format is documented in `recall_agent/inventory.py`):
 
